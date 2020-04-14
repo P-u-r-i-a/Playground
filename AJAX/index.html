@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX</title>
+</head>
+
+<body>
+    <button onclick="req()">AJAX</button>
+    <script>
+        function req() {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.status == 200 && this.readyState == 4) {
+                    // document.body.innerHTML = this.responseText;
+                    document.body.innerHTML = this.getResponseHeader('x-powered-by');
+                };
+            };
+            xhttp.open('POST', './AJAX/response.php', true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("name=Test");
+        }
+    </script>
+</body>
+
+</html>
