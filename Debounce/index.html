@@ -28,20 +28,32 @@
 
 <body>
     <input type="text" id="input">
-        <p id="with-debounce">With debounce:</p>
-        <p id="without-debounce">Without debounce:</p>
+        <p id="debounce-request"></p><p id="with-debounce"> With debounce:</p>
+        <p id="normal-request"></p><p id="without-debounce"> Without debounce:</p>
     <script>
+        // debounce request count
+        var dbrc = 0;
+        // normal request count
+        var nrc = 0;
+
         var input = document.getElementById('input');
 
         input.addEventListener('input', function(e) {
+            ++nrc;
+            var nr = document.getElementById('normal-request');
+            nr.innerText = "Request Count: " + nrc;
             var result = document.getElementById('without-debounce');
-            result.innerHTML = "Without debounce:  " + e.target.value;
+            result.innerHTML = " - Without debounce:  " + e.target.value;
         });
 
         input.addEventListener('input', debounce(function (e) {
+            ++dbrc ;
+            var dbr = document.getElementById('debounce-request');
+
+            dbr.innerText = "Request Count: " + dbrc;
             var result = document.getElementById('with-debounce');
 
-            result.innerText = "With debounce:  " + input.value;
+            result.innerText = " - With debounce:  " + input.value;
         }, 900));
 
         function debounce(callback, delay) {
